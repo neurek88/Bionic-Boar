@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - gm
+  - enemy
+  - Jump
+  - plant
   layers:
   - Default
   - TransparentFX
@@ -16,7 +19,7 @@ TagManager:
   - 
   - enemy
   - player
-  - 
+  - Jump
   - 
   - 
   - 
@@ -47,4 +50,10 @@ TagManager:
     locked: 0
   - name: Character
     uniqueID: 2704074723
+    locked: 0
+  - name: player
+    uniqueID: 3869443135
+    locked: 0
+  - name: UI
+    uniqueID: 942167659
     locked: 0

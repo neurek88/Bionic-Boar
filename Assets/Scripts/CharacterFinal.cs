@@ -7,17 +7,16 @@ using UnityEngine.UI;
 public class CharacterFinal : MonoBehaviour
 {
 	public bool jump = false;				// Condition for whether the player should jump.	
-	public float jumpForce = 10.0f;			// Amount of force added when the player jumps.
+	public float jumpForce = 0.002f;			// Amount of force added when the player jumps.
 	private bool grounded = false;			// Whether or not the player is grounded.
-	public float movementSpeed = 5f;			// The vertical speed of the movement
-	private Animator anim;
+	public static float movementSpeed = 3f;			// The vertical speed of the movement
     public Rigidbody2D player;// The animator that controls the characters animations
-    public GameObject zombie;
+    public Vector3 jumping;
 
-	void Awake()
+    void Awake()
 	{
-		anim = GetComponent<Animator>();
-	}
+        jumping = new Vector3(0.0f, 0.5f, 0.0f);
+    }
 	
 
 	//This method is called when the character collides with a collider (could be a platform).
@@ -30,25 +29,21 @@ public class CharacterFinal : MonoBehaviour
         {
             GameMaster.KillPlayer(this.gameObject);
         }
-	}
+        //The update method is called many times per seconds
+        if (hit.gameObject.tag == "Jump")
+        {
+            // If the jump button is pressed and the player is grounded and the character is running forward then the player should jump.
+            if (grounded == true)
+            {
+                jump = true;
+                grounded = false;
+                player.AddForce(jumping * jumpForce, ForceMode2D.Impulse);
+            }
 
-	//The update method is called many times per seconds
-	void Update()
-	{
-		if(Input.GetButtonDown("Fire1"))
-		{		
-			// If the jump button is pressed and the player is grounded and the character is running forward then the player should jump.
-			if(grounded == true)						
-			{
-				jump = true;
-				grounded = false;
-				//We trigger the Jump animation state
-				anim.SetTrigger("Jump");
-			}
-		
-		}
+        }
+    }
 
-	}
+   
 
 
 

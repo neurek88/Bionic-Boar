@@ -9,6 +9,7 @@ public class CharacterStart : MonoBehaviour
 	public bool startedMovement = false; 	// Is the character moving?
 	public int movementSpeed = 10;			// The vertical speed of the movement
     public Rigidbody2D player;
+    public GameObject jumpbar;
 
 	//Called when the game starts, but we set our movement variable to false, so we activate it later
 	void Start()
@@ -19,26 +20,24 @@ public class CharacterStart : MonoBehaviour
 	//This method is called when the character collides with a collider (could be a platform).
 	void OnCollisionEnter2D(Collision2D hit)
 	{
-		grounded = true;
-	}
+            // If the jump button is pressed and the player is grounded and the character is running forward then the player should jump.
+            if ((grounded == true) && (startedMovement == true))
+            {
+                jump = true;
+                grounded = false;
+            }
+            else // if the game is set now to start the character will start to run forward in the FixedUpdate
+            {
+                startedMovement = true;
+            }
 
-	//The update method is called many times per seconds
-	void Update()
-	{
-		if(Input.GetButtonDown("Fire1"))
-		{		
-			// If the jump button is pressed and the player is grounded and the character is running forward then the player should jump.
-		    if( (grounded == true) && (startedMovement == true))						
-			{
-				jump = true;
-				grounded = false;
-			}
-			else // if the game is set now to start the character will start to run forward in the FixedUpdate
-			{
-				startedMovement = true;
-			}
-		}
-	}
+          /*  if (hit.gameObject.tag == "Jump")
+        {
+            Physics2D.IgnoreCollision(jumpbar.collider, hit);
+        }
+        */
+    }
+
 
 	//Since we are using physics for movement, we use the FixedUpdate method
 	void FixedUpdate ()
