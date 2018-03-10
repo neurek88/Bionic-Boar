@@ -85,7 +85,7 @@ public class weapon : MonoBehaviour {
     {
         Vector2 mousePostion = new Vector2(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, Camera.main.ScreenToWorldPoint(Input.mousePosition).y);
         Vector2 firePointPosition = new Vector2(firePoint.position.x, firePoint.position.y);
-        RaycastHit2D hit = Physics2D.Raycast(firePointPosition, (mousePostion - firePointPosition), 50, WhatToHit);
+        RaycastHit2D hit = Physics2D.Raycast(firePointPosition, (mousePostion - firePointPosition), 6, WhatToHit);
 
         if (Time.time >= timeToSpawnEffect)
         {
